@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "props-type";
+import PropTypes from "prop-types";
 
 import classes from "./BurgerIngredient.css";
 
