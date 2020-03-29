@@ -10,7 +10,7 @@
 
 @media (min-width: 300px) and (min-height: 300px) {
   .Burger {
-    width: 300px;
+    /* width: 300px; */
     height: 300px;
   }
 }
@@ -22,9 +22,9 @@
   }
 }
 
-@media (min-width: 1000px) and (min-height: 700px) {
+/* @media (min-width: 1000px) and (min-height: 700px) {
   .Burger {
     width: 700px;
     height: 600px;
   }
-}
+} */
