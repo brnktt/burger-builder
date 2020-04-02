@@ -8,6 +8,7 @@
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+  text-align: left;
 }
 
 .inputElement {
@@ -24,4 +25,15 @@
 .inputElement:focus {
   outline: none;
   background-color: #ccc;
+}
+
+.Invalid {
+  border: 1px solid red;
+  background-color: salmon;
+}
+
+.ValidationError {
+  color: red;
+  margin: 5px 0;
+  text-align: left;
 }

@@ -3,51 +3,86 @@ import classes from "./Input.css";
 
 const Input = props => {
   let inputElement = null;
+  let showErrorMessage = false;
+  const inputClasses = [classes.inputElement];
+
+  if (!props.valid && props.shouldValidate && props.touched) {
+    inputClasses.push(classes.Invalid);
+    showErrorMessage = true;
+  }
 
   switch (props.elementType) {
     case "input":
       inputElement = (
-        <input
-          className={classes.inputElement}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
-        />
+        <div>
+          <input
+            className={inputClasses.join(" ")}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed}
+          />
+          {showErrorMessage ? (
+            <p className={classes.ValidationError}>
+              {props.validationErrorMessage}
+            </p>
+          ) : null}
+        </div>
       );
       break;
     case "textarea":
       inputElement = (
-        <textarea
-          className={classes.inputElement}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
-        />
+        <div>
+          <textarea
+            className={inputClasses.join(" ")}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed}
+          />
+          {showErrorMessage ? (
+            <p className={classes.ValidationError}>
+              {props.validationErrorMessage}
+            </p>
+          ) : null}
+        </div>
       );
       break;
     case "select":
       inputElement = (
-        <select
-          className={classes.inputElement}
-          value={props.value}
-          onChange={props.changed}
-        >
-          {props.elementConfig.options.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.displayValue}
-            </option>
-          ))}
-        </select>
+        <div>
+          <select
+            className={inputClasses.join(" ")}
+            value={props.value}
+            onChange={props.changed}
+          >
+            {props.elementConfig.options.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.displayValue}
+              </option>
+            ))}
+          </select>
+          {showErrorMessage ? (
+            <p className={classes.ValidationError}>
+              {props.validationErrorMessage}
+            </p>
+          ) : null}
+        </div>
       );
       break;
     default:
       inputElement = (
-        <input
-          className={classes.inputElement}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
-        />
+        <div>
+          <input
+            className={inputClasses.join(" ")}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed}
+          />
+          {showErrorMessage ? (
+            <p className={classes.ValidationError}>
+              {props.validationErrorMessage}
+            </p>
+          ) : null}
+        </div>
       );
   }
 
