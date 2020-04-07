@@ -54,6 +54,7 @@ class ContactData extends Component {
           required: true,
           minLength: 5,
           maxLength: 5,
+          isNumeric: true,
         },
         valid: false,
         validationErrorMessage: "ZIP Code must have 5 digits",
@@ -84,11 +85,10 @@ class ContactData extends Component {
         value: "",
         validation: {
           required: true,
-          contain: "@",
+          isEmail: true,
         },
         valid: false,
-        validationErrorMessage:
-          "Please, enter a valid email, it must contain '@'",
+        validationErrorMessage: "Please, enter a valid email",
         touched: false,
       },
       deliveryMethod: {
@@ -132,6 +132,9 @@ class ContactData extends Component {
 
   checkValidity = (value, rules) => {
     let isValid = true;
+    if (!rules) {
+      return true;
+    }
 
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
@@ -145,8 +148,14 @@ class ContactData extends Component {
       isValid = value.length <= rules.maxLength && isValid;
     }
 
-    if (rules.contain) {
-      isValid = value.includes(rules.contain) && isValid;
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
     }
 
     return isValid;
