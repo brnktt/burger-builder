@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classes from "./Auth.css";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
 
 class Auth extends Component {
@@ -116,7 +117,7 @@ class Auth extends Component {
       });
     }
 
-    const form = formElementsArray.map((formElement) => (
+    let form = formElementsArray.map((formElement) => (
       <Input
         key={formElement.id}
         label={formElement.config.label}
@@ -130,6 +131,10 @@ class Auth extends Component {
         validationErrorMessage={formElement.config.validationErrorMessage}
       />
     ));
+
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
 
     return (
       <div className={classes.Auth}>
@@ -145,6 +150,12 @@ class Auth extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignup) =>
@@ -152,4 +163,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
